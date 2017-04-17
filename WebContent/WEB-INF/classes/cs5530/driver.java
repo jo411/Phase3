@@ -360,7 +360,7 @@ public class driver {
 		}
 	}
 	
-	public static void showTrustedUsers(Connector con, User user, int maxEntries)
+	public static String showTrustedUsers(Connector con, User user, int maxEntries)
 	{	
 	
 		String sql = "select login, count(if(isTrusted = True, True, Null)) - count(if(isTrusted = false, True, Null)) as score From Users left outer join Trust on Users.login = Trust.Trustee group by login order by score DESC limit "+maxEntries+";";
@@ -384,7 +384,7 @@ public class driver {
 				System.out.println("cannot close resultset");
 			}
 		}
-		displayUsers(con,user,users);
+		return displayUsers(con,user,users);
 	}
 	
 	public static void showTrustedUsers(Connector con, User user) throws IOException
@@ -426,9 +426,9 @@ public class driver {
 		displayUsers(con,user,users);
 	}
 	
-	public static string displayUsers(Connector con, User user, ArrayList<String> users)
+	public static String displayUsers(Connector con, User user, ArrayList<String> users)
 	{
-		StringBuilder sb= new stringBuilder();
+		StringBuilder sb= new StringBuilder();
 		
 		int count = 1;
 		for(String currentUser: users)
@@ -437,13 +437,13 @@ public class driver {
 			//and get rid of any info that we think
 			//might not be necessary
 			System.out.println(count + ". " + currentUser.toString());
-			sb.append(count + ". " + currentUser.toString());
+			sb.append(count + ". " + currentUser.toString()+'\n');
 			count++;
 		}
 		return sb.toString();
 	}
 	
-	public static string showUsefulUsers(Connector con, User user, int maxEntries)
+	public static String showUsefulUsers(Connector con, User user, int maxEntries)
 	{
 		
 		String sql = "select login from Users u left outer join(select login as login2, avg(rating) as average From  Rates group by login) as rating on u.login = rating.login2 order by average DESC limit "+maxEntries+";";

@@ -50,7 +50,7 @@ String newFlag=request.getParameter("newFlag");
 		<%
 	}
 	
-	
+	//con.closeConnection();//TODO:maybe remove
 %>
 
 </body>

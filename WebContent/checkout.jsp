@@ -7,9 +7,16 @@
 <title>Login</title>
 </head>
 <body>
+<%
+Connector con= (Connector)session.getAttribute("connector");
+%>
+
 
 <p>Hello, <%=session.getAttribute("user") %>!</p>
 
 
+<%
+con.closeConnection();
+%>
 </body>
 </html>

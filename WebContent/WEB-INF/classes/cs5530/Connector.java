@@ -1,8 +1,9 @@
 package cs5530;
 
 import java.sql.*;
+import java.io.Serializable;
 
-public class Connector {
+public class Connector extends Object implements Serializable {
 	public Connection con;
 	public Statement stmt;
 	public Connector() throws Exception {

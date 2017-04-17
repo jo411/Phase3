@@ -7,7 +7,8 @@
 <title>Login</title>
 </head>
 <body>
-
+<input type="button" onclick="location.href='main_menu.jsp';" value="Return to Menu" />
+<p></p>
 <p>Hello, <%=session.getAttribute("user") %>!</p>
 
 
