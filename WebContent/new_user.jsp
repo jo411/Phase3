@@ -8,10 +8,21 @@
 </head>
 <body>
 
+Create a new account below
 <form action="landing.jsp">
-	Username:<input type="text" name="username">
+	Username:<input type="text" name="username" >
+	<p></p>
 	Password:<input type="password" name="password" />
-	<input type="submit" value="Login" />
+	<p></p>
+	Full Name:<input type="text" name="name">
+	<p></p>
+	Address:<input type="text" name="address">
+	<p></p>
+	Phone Number:<input type="text" name="phoneNumber">
+	<p></p>	
+	<input type="hidden" name="newFlag" value=1>
+	<p></p>
+	<input type="submit" value="Create" />
 </form>
 
 </body>

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.io.Serializable;
 import cs5530.*;
 
-public class User implements Serializable{
+public class User extends Object implements Serializable{
 	public String login;
 	public String password;
 	public boolean isAdmin;

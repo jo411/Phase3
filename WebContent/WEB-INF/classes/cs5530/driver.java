@@ -426,8 +426,10 @@ public class driver {
 		displayUsers(con,user,users);
 	}
 	
-	public static void displayUsers(Connector con, User user, ArrayList<String> users)
+	public static string displayUsers(Connector con, User user, ArrayList<String> users)
 	{
+		StringBuilder sb= new stringBuilder();
+		
 		int count = 1;
 		for(String currentUser: users)
 		{
@@ -435,11 +437,13 @@ public class driver {
 			//and get rid of any info that we think
 			//might not be necessary
 			System.out.println(count + ". " + currentUser.toString());
+			sb.append(count + ". " + currentUser.toString());
 			count++;
 		}
+		return sb.toString();
 	}
 	
-	public static void showUsefulUsers(Connector con, User user, int maxEntries)
+	public static string showUsefulUsers(Connector con, User user, int maxEntries)
 	{
 		
 		String sql = "select login from Users u left outer join(select login as login2, avg(rating) as average From  Rates group by login) as rating on u.login = rating.login2 order by average DESC limit "+maxEntries+";";
@@ -463,7 +467,7 @@ public class driver {
 				System.out.println("cannot close resultset");
 			}
 		}
-		displayUsers(con,user,users);
+		return displayUsers(con,user,users);
 	}
 	
 	public static void showUsefulUsers(Connector con, User user) throws IOException
@@ -3761,6 +3765,11 @@ public class driver {
 		System.out.println("4. Record a visit");
 		System.out.println("6. Degrees of Seperation");
 		System.out.println("8. View stats");
+		
+		//Admin only options
+		//showTrustedUsers
+	
+		//showUsefulUsers
 
 	}
 
