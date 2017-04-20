@@ -1,6 +1,8 @@
 package cs5530;
 
-public class TH {
+import java.io.Serializable;
+
+public class TH extends Object implements Serializable{
 	public int thid;
 	public String category;
 	public String url;

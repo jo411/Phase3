@@ -1570,7 +1570,7 @@ public class driver {
 	
 	//passed parameters can be empty strings or null but they must comply with the patter given in the search params.
 	//Searchparams is generated with the same rules as below abd simply passed in
-	public static void browseTH(Connector con, User user, String city,String keyWord,String category,String state, int priceLow,
+	public static ArrayList<TH> browseTH(Connector con, User user, String city,String keyWord,String category,String state, int priceLow,
 			int priceHigh, int filterMode,int filterType, String searchParams)
 	{		
 		
@@ -1880,13 +1880,7 @@ public class driver {
 		
 		// at this point we should have all TH in that array list and we 
 		//call the following function to display
-		try {
-			viewTH(thList,con, user);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+		return thList;
 		
 	}
 	
@@ -1896,7 +1890,7 @@ public class driver {
 	{
 		//BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		ArrayList<Integer> searchPArray = new ArrayList<Integer>();
-		
+		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		//String[] keywords;	
 		String city = null,keyWord = null,category=null,state = null;
 		String searchParams = null;				

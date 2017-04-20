@@ -5,6 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Browse_TH</title>
+<input type="button" onclick="location.href='main_menu.jsp';" value="Return to Menu" />
  <script LANGUAGE="javascript">
         function submitForms(){
             document.forms["Price"].submit();
@@ -33,10 +34,10 @@ You can use each option only once.</br>
 To "sort by" enter your the number in the "Sort By" box</br>
 1. Price</br>
 2. Average feedback score </br>
-3. Averge trusted user feedback score</br>
+3. Average trusted user feedback score</br>
 Filter mode
 1. Ascending</br>
-2. Decending</br>
+2. Descending</br>
 
 
 
@@ -71,7 +72,7 @@ String searchParams = request.getParameter("searchParams");
 	if(filterTypeString != null && filterModeString != null){
 	filterType = Integer.parseInt(filterTypeString);
 	filterMode = Integer.parseInt(filterModeString);}
-	driver drive = new driver();
+	//driver drive = new driver();
 	if(searchParams!=null)
 		driver.browseTH((Connector)session.getAttribute("connector"),(User)session.getAttribute("user"), city, keyWord, category, state, priceLow, priceHigh, filterMode, filterType, searchParams);
 	
@@ -100,10 +101,9 @@ String searchParams = request.getParameter("searchParams");
 <%//end else line of if(searchParams!=null) %>
 	
 
-<input type="button" onclick="location.href='main_menu.jsp';" value="Return to Menu" />
+
 <p></p>
 
-<p>Hello, <%=session.getAttribute("user") %>!</p>
 
 
 </body>
