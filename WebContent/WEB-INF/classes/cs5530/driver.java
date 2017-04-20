@@ -1568,6 +1568,7 @@ public class driver {
 	}
 	
 	
+	
 	//passed parameters can be empty strings or null but they must comply with the patter given in the search params.
 	//Searchparams is generated with the same rules as below abd simply passed in
 	public static ArrayList<TH> browseTH(Connector con, User user, String city,String keyWord,String category,String state, int priceLow,
