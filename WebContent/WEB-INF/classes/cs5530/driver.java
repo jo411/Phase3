@@ -1573,6 +1573,7 @@ public class driver {
 	public static void browseTH(Connector con, User user, String city,String keyWord,String category,String state, int priceLow,
 			int priceHigh, int filterMode,int filterType, String searchParams)
 	{		
+		
 		ArrayList<Integer> searchPArray = new ArrayList<Integer>();		
 		//String[] keywords;			
 		
@@ -1893,7 +1894,7 @@ public class driver {
 	
 	public static void browseTH(Connector con, User user) throws IOException
 	{
-		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+		//BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		ArrayList<Integer> searchPArray = new ArrayList<Integer>();
 		
 		//String[] keywords;	
