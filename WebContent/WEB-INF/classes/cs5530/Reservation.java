@@ -1,8 +1,8 @@
 package cs5530;
 
+import java.io.Serializable;
 
-
-public class Reservation {
+public class Reservation extends Object implements Serializable{
 	TH th;
 	
 	public java.sql.Date start;

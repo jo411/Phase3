@@ -3049,9 +3049,9 @@ public class driver {
 	
 
 	//used by API 2.0
-	public static java.sql.Date convertDate(String input) throws IOException
+	public static java.sql.Date convertDate(String input)
 	{
-		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+		
 		
 		java.sql.Date inputDate = null;	
 		
@@ -3109,6 +3109,83 @@ public class driver {
 		
 		
 	}
+	
+	public static String getDates(Statement stmt,TH th)
+	{
+		ArrayList<Availability> Availabilities = new ArrayList<Availability>();	
+		StringBuilder sb = new StringBuilder();
+		ResultSet rs = null;
+		String sql="SELECT * FROM 5530db13.Available natural join 5530db13.Period where thid="+th.thid+";";
+		
+		
+		try{
+		
+			//System.out.println("Executing: "+sql);
+		 rs = stmt.executeQuery(sql);
+		 
+		 while(rs.next())
+			{
+			 Availability temp = new Availability(new Period(rs.getDate("start"),rs.getDate("stop")),rs.getInt("pid"), rs.getInt("pricePerNight"));
+				Availabilities.add(temp);
+			}
+		 
+		}
+		catch(Exception e)
+		{
+			System.out.println("cannot execute query: ");
+		}
+		finally{
+			try{
+				if(rs != null && !rs.isClosed())
+				{
+					rs.close();
+				}
+			}
+			catch(Exception e)
+			{
+				System.out.println("cannot close resultset");
+			}
+		}
+		
+		if(Availabilities.size()<=0)
+		{
+			System.out.println("There are no openings for this TH.");
+			sb.append("There are no openings for this TH.");
+			return sb.toString();
+		}
+		
+		System.out.println("Here are the current availabilities for this TH:");
+		sb.append("Here are the current availabilities for this TH:"+"<BR>");
+		
+		for(Availability current : Availabilities)
+		{
+			System.out.println(current.ToString());
+			sb.append(current.ToString()+"<BR>");
+		}
+		return sb.toString();
+	}
+	
+	public static void addReservation(Statement stmt,TH th,User user,String start, String stop)//also inserts into user
+	{		
+		
+		Period inPeriod=new Period();		
+	inPeriod.start=convertDate(start);
+	inPeriod.stop=convertDate(stop);
+
+			if(!inPeriod.isValid())//if this date is invalid
+			{
+				System.out.println("Invalid date range entered");
+return;
+			}
+		
+		
+		
+		//inPeriod is the good date for reservation
+		//container has the table info
+		user.addReservation(th, inPeriod);
+		return;
+	}
+	
 	
 	public static void promptPeriodByTH(Statement stmt,TH th,User user)//also inserts into user
 	{
