@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Login</title>
+<title>ViewTH</title>
 </head>
 <body>
 <%
@@ -80,6 +80,12 @@ if(request.getParameter("submitFlag")!=null)
 		driver.leaveFeedback(((Connector)session.getAttribute("connector")).stmt, (User)session.getAttribute("user"), score, comment, selectedTH);
 }
 %>
+
+<p> View Feedback For this TH</p>
+
+<form action= "view_feedback.jsp">
+<input type = "submit" value = "View Feedback">
+</form>
 
 
 <p>Mark this TH as a favorite</p>

@@ -2460,7 +2460,7 @@ public class driver {
 		}
 	}
 	
-	public static void viewFeedback(TH th, Connector con, User user,boolean viewAll, int maxEntries) throws IOException
+	public static ArrayList<Feedback> viewFeedback(TH th, Connector con, User user,boolean viewAll, int maxEntries) throws IOException
 	{
 		
 		String sql = null;
@@ -2504,6 +2504,7 @@ public class driver {
 			System.out.println(count + ". " + fb.toString());
 			count++;
 		}
+		return feedbacks;
 		
 	}
 	
@@ -3495,8 +3496,8 @@ return;
 		System.out.println("1. mark user as trusted");
 		System.out.println("0. mark user as untrusted");
 		String input = null;
-		while((input = in.readLine()) == null && input.length() == 0 && (input != "0" || input!= "1"))
-			System.out.println("please enter either 1 or 0");;
+		//while((input = in.readLine()) == null && input.length() == 0 && (input != "0" || input!= "1"))
+		//	System.out.println("please enter either 1 or 0");;
 		int inputInt = -1;
 		try{
 			inputInt = Integer.parseInt(input);
@@ -3506,6 +3507,33 @@ return;
 			System.out.println("Please input valid number");
 			
 		}
+		String sql = null;
+
+		sql = "insert into Trust (isTrusted, Truster, Trustee) VALUES ('"+inputInt+"', '" + user.login+ "', '" + feedback.login +  "');";
+		try {
+			con.stmt.executeUpdate(sql);
+			System.out.println("Trustworthiness successfully added");
+		} catch (java.sql.SQLIntegrityConstraintViolationException e) {
+			System.out.println("You already trusted/untrusted this user");
+			return;
+		} catch (Exception e) {
+			System.out.println("Cannot execute the query." + sql);
+			return;
+		}
+		
+	}
+	
+	
+	public static void trustUser(Feedback feedback,Connector con,User user,int trust) throws IOException
+	{
+		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+		System.out.println("1. mark user as trusted");
+		System.out.println("0. mark user as untrusted");
+		String input = null;
+		//while((input = in.readLine()) == null && input.length() == 0 && (input != "0" || input!= "1"))
+		//	System.out.println("please enter either 1 or 0");;
+		int inputInt = trust;
+		
 		String sql = null;
 
 		sql = "insert into Trust (isTrusted, Truster, Trustee) VALUES ('"+inputInt+"', '" + user.login+ "', '" + feedback.login +  "');";
