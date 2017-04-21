@@ -13,7 +13,5 @@
 <p>Hello, <%=session.getAttribute("user") %>!</p>
 
 
-
-
 </body>
 </html>

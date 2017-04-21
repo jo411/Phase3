@@ -1,8 +1,10 @@
 package cs5530;
 
-public class Availability {
+import java.io.Serializable;
+
+public class Availability extends Object implements Serializable{
 	Period  period;
-	int pid;
+	public int pid;
 	int price;
 	
 	
@@ -12,6 +14,7 @@ public class Availability {
 	this.pid=pid;
 	this.price = price;
 	}
+	
 	
 	public String ToString()
 	{

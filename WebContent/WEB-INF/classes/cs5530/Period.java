@@ -1,8 +1,9 @@
 package cs5530;
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.Calendar;
 
-public class Period {
+public class Period extends Object implements Serializable{
 	
 	public java.sql.Date start;
 	public java.sql.Date stop;

@@ -1013,6 +1013,37 @@ public class driver {
 		return returnThList;
 	}
 	
+	public static ArrayList<TH> getUserTH(Connector con,User user)
+	{	
+		
+		ArrayList<TH> usersTH = new ArrayList<TH>();
+		String sql = "Select * from TH where login = '" + user.login + "';";
+		//System.out.println("executing "+sql);
+		ResultSet rs = null;
+		
+		try{
+			rs = con.stmt.executeQuery(sql);
+			while(rs.next())
+			{
+				TH th = new TH(rs.getInt("thid"), rs.getString("category"), rs.getString("url"), rs.getString("name"), rs.getString("address"), rs.getString("phone"),rs.getString("yearBuilt") , rs.getInt("price"), rs.getString("login"));
+				usersTH.add(th);
+			}
+			rs.close();
+		}
+		catch(Exception e)
+		{
+			System.out.println("cannot execute query: " + sql);
+		}finally{
+			try{
+				if (rs != null && !rs.isClosed())
+					rs.close();
+			} catch (Exception e) {
+				System.out.println("cannot close resultset");
+			}
+		}	
+		return usersTH;
+	}
+	
 	public static void editListing(Connector con,User user) throws IOException
 	{
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
@@ -1232,7 +1263,7 @@ public class driver {
 		}
 	}
 	
-	public void updateListing(Connector con,TH selectedTH)
+	public static void updateListing(Connector con,TH selectedTH)
 	{
 		System.out.println("Updating TH");
 		String sql = "Update TH SET category='" + selectedTH.category + "', url='" + selectedTH.url + "', name='"
@@ -2855,16 +2886,6 @@ public class driver {
 			return;
 		}		
 		
-//		SELECT * FROM tbl WHERE
-//		existing_start BETWEEN $newStart AND $newEnd OR 
-//		existing_end BETWEEN $newStart AND $newEnd OR
-//		$newStart BETWEEN existing_start AND existing_end
-//
-//		if (!empty($result))
-//		throw new Exception('We have overlapping')
-		
-		//test for valid range
-		
 	
 		String startString=inPeriod.start.toString();
 		String stopString=inPeriod.stop.toString();
@@ -3164,6 +3185,48 @@ public class driver {
 			sb.append(current.ToString()+"<BR>");
 		}
 		return sb.toString();
+	}
+	
+	
+	public static ArrayList<Availability> getDatesList(Statement stmt,TH th)
+	{
+		ArrayList<Availability> Availabilities = new ArrayList<Availability>();	
+		StringBuilder sb = new StringBuilder();
+		ResultSet rs = null;
+		String sql="SELECT * FROM 5530db13.Available natural join 5530db13.Period where thid="+th.thid+";";
+		
+		
+		try{
+		
+			//System.out.println("Executing: "+sql);
+		 rs = stmt.executeQuery(sql);
+		 
+		 while(rs.next())
+			{
+			 Availability temp = new Availability(new Period(rs.getDate("start"),rs.getDate("stop")),rs.getInt("pid"), rs.getInt("pricePerNight"));
+				Availabilities.add(temp);
+			}
+		 
+		}
+		catch(Exception e)
+		{
+			System.out.println("cannot execute query: ");
+		}
+		finally{
+			try{
+				if(rs != null && !rs.isClosed())
+				{
+					rs.close();
+				}
+			}
+			catch(Exception e)
+			{
+				System.out.println("cannot close resultset");
+			}
+		}
+		
+		
+		return Availabilities;
 	}
 	
 	public static void addReservation(Statement stmt,TH th,User user,String start, String stop)//also inserts into user

@@ -22,8 +22,6 @@ User user=(User)session.getAttribute("user");
 <p></p>
 <input type="button" onclick="location.href='record_visit.jsp';" value="Record a Visit to a TH" />
 <p></p>
-<input type="button" onclick="location.href='seperation.jsp';" value="Calculate Degrees of Seperation" />
-<p></p>
 <input type="button" onclick="location.href='stats.jsp';" value="Look at Statistics" />
 <p></p>
 
