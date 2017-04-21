@@ -3839,6 +3839,52 @@ return;
 		}
 	}
 	
+	
+	
+	public static ArrayList<Visit> getUserReservations(Connector con, User user)
+	{
+		String sql="SELECT * FROM 5530db13.Reserve natural join 5530db13.Period where login='"+user.login+"';";
+		
+		//System.out.println("Below are your current stored reservations (excluding the cart)");
+		
+		
+		
+		ArrayList<Visit> reserveList = new ArrayList<Visit>();
+		ResultSet rs = null;
+
+		try{
+		//execute the query		
+			//System.out.println("Executing: "+sql);
+		 rs = con.stmt.executeQuery(sql);
+		 
+		 while(rs.next())
+			{
+			 Visit temp = new Visit(rs.getInt("thid"),rs.getDate("start"),rs.getDate("stop"),rs.getInt("pid"));
+				reserveList.add(temp);
+			}
+		 
+		}
+		catch(Exception e)
+		{
+			System.out.println("cannot execute query: ");
+		}
+		finally{
+			try{
+				if(rs != null && !rs.isClosed())
+				{
+					rs.close();
+				}
+			}
+			catch(Exception e)
+			{
+				System.out.println("cannot close resultset");
+			}
+		}
+		return reserveList;
+	}
+	
+	
+	
 	//need to fix
 	public static void recordVisit(Connector con, User user)
 	{
