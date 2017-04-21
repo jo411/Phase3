@@ -9,8 +9,8 @@ public class User extends Object implements Serializable{
 	public String password;
 	public boolean isAdmin;
 	
-	ArrayList<Reservation> reservations;
-	ArrayList<Visit> visits;
+	public ArrayList<Reservation> reservations;
+	public ArrayList<Visit> visits;
 	public User(String login, String password, boolean isAdmin)
 	{		
 		//UserType is whether the user is admin or not

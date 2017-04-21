@@ -3579,8 +3579,21 @@ return;
 		{
 			breakPeriodsAndInsert(con.stmt,user,current.th,new Period(current.start,current.stop));
 		}
-
+		
 	}
+		
+		public static void confirmReservationsJsp(User user,Connector con)
+		{
+			//BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+			String input ="";
+			int count;
+			
+			for(Reservation current:user.reservations)
+			{
+				breakPeriodsAndInsert(con.stmt,user,current.th,new Period(current.start,current.stop));
+			}
+
+		}
 	
 	
 
@@ -3752,6 +3765,18 @@ return;
 			System.out.println(e.getMessage());
 		}
 		
+	}
+	
+	public static void confirmVisitsJSP(Connector con,User user)
+	{
+		//BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+		String input ="";
+		int count;	
+		
+		for(Visit current:user.visits)
+		{
+			insertVisits(con.stmt,user,current);
+		}
 	}
 		
 	//needs to be fixed
