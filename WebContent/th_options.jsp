@@ -49,6 +49,7 @@ if(index<=thList.size()-1)
 	
 	<input type="submit" />
 </form>
+<BR><BR>
 
 <%
 if(request.getParameter("alterFlag")!=null)
@@ -68,7 +69,10 @@ if(request.getParameter("alterFlag")!=null)
 
 
 
-<input type="button" onclick="location.href='keywords.jsp';" value="Edit Keywords" />
+<input type="button" onclick="location.href='addKeywords.jsp';" value="Add Keyword" />
+<p></p>
+
+<input type="button" onclick="location.href='removeKeywords.jsp';" value="Remove Keyword" />
 <p></p>
 
 <input type="button" onclick="location.href='add_availabilities.jsp';" value="Add Availability" />

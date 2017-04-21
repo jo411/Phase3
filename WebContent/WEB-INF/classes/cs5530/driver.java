@@ -1404,6 +1404,37 @@ public class driver {
 		return wid;
 	}
 	
+	
+	public static ArrayList<Keyword> getKeywordsList(TH th, Connector con, User user) throws IOException
+	{
+		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+		ArrayList<Keyword> keywords = new ArrayList<Keyword>();
+		String sql = "select * from HasKeywords hk, Keywords kw where thid = "+ th.thid + " AND hk.wid = kw.wid;";
+		ResultSet rs = null;
+		try{
+			rs = con.stmt.executeQuery(sql);
+			while(rs.next())
+			{
+				Keyword temp = new Keyword(rs.getInt("wid"), rs.getString("word"));
+				keywords.add(temp);
+			}
+			rs.close();
+		}
+		catch(Exception e) {
+			System.out.println("cannot execute query: " + sql);
+		} finally {
+			try {
+				if (rs != null && !rs.isClosed())
+					rs.close();
+			} catch (Exception e) {
+				System.out.println("cannot close resultset");
+			}
+		}
+				
+		return keywords;
+
+	}
+	
 	public static void displayKeywords(TH th, Connector con, User user) throws IOException
 	{
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
@@ -1475,7 +1506,7 @@ public class driver {
 		}
 	}
 	
-	static void deleteKeyword(Statement stmt,Keyword keyword, TH th)
+	public static void deleteKeyword(Statement stmt,Keyword keyword, TH th)
 	{		
 		String sql = "delete from HasKeywords Where wid = "+ keyword.wid +" AND thid = "+ th.thid +";";
 		try {
@@ -3915,6 +3946,58 @@ return;
 			// TODO Auto-generated catch block
 			System.out.println("System: We're having troubles displaying your TH recomendations.");
 		}
+		
+	}
+	
+	
+	public static ArrayList<TH> getRecomendationsList(Connector con,User user,TH th)
+	{
+		String sql="Select * from 5530db13.TH natural join (Select v2.thid,count(*)as total From Visits v1 CROSS JOIN Visits v2 WHERE v1.login!='"+user.login+"' AND v1.thid="+th.thid+" AND v1.login=v2.login AND v1.thid!=v2.thid Group By v2.thid) as suggestions ORDER BY total desc;";
+		
+		ArrayList<TH> thList = new ArrayList<TH>();
+		ResultSet rs = null;
+		//At this moment I don't have a TH class made yet.
+		try{
+		//execute the query
+			//iterate throught the result set and create new TH objects
+			//for each line in the result set
+			//System.out.println("Executing: "+sql);
+		 rs = con.stmt.executeQuery(sql);
+		 
+		 while(rs.next())
+			{
+				TH temp = new TH(rs.getInt("thid"), rs.getString("category"), rs.getString("url"), rs.getString("name"), rs.getString("address"), rs.getString("phone"),rs.getString("yearBuilt") , rs.getInt("price"), rs.getString("login"));
+				thList.add(temp);
+			}
+		 
+		}
+		catch(Exception e)
+		{
+			System.out.println("cannot execute query: ");
+		}
+		finally{
+			try{
+				if(rs != null && !rs.isClosed())
+				{
+					rs.close();
+				}
+			}
+			catch(Exception e)
+			{
+				System.out.println("cannot close resultset");
+			}
+		}
+		return thList;
+		
+		// at this point we should have all TH in that array list and we 
+		//call the following function to display
+//		try {
+		//viewTH(thList,con, user);
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			System.out.println("System: We're having troubles displaying your TH recomendations.");
+//		}
+		
 	}
 
 

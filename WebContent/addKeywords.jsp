@@ -13,5 +13,24 @@
 <p>Hello, <%=session.getAttribute("user") %>!</p>
 
 
+<p>Please Enter the Keyword you wish to add.</p>
+
+
+<form action="addKeywords.jsp">
+	Keyword:<input type="text" name="keyW"/><BR>	
+	<input type="hidden" name="addKeyFlag" value=1 /><BR>
+	<input type="submit" value="Add Keyword" /><BR>
+</form>
+
+<%
+if(request.getParameter("addKeyFlag")!=null)
+{
+	driver.addKeyword((TH)session.getAttribute("alterTH"),(Connector)session.getAttribute("connector"), (User)session.getAttribute("user"),  
+			request.getParameter("keyW"));
+	
+	
+}
+%>
+
 </body>
 </html>

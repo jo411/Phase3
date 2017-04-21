@@ -25,6 +25,7 @@ ArrayList<TH> thList = (ArrayList<TH> ) session.getAttribute("thlist");
 if(index<=thList.size()-1)
 {
 	selectedTH=thList.get(index);
+	session.setAttribute("currentTH", selectedTH);
 }
 
 %>
@@ -46,6 +47,7 @@ if(request.getParameter("reserveFlag")!=null)
 	//(Statement stmt,TH th,User user,String start, String stop)//also inserts into user
 	System.out.println(user);
 session.setAttribute("user", user);//update user
+response.sendRedirect("recommendations.jsp");
 
 }else
 {
@@ -102,18 +104,8 @@ if(request.getParameter("favoriteFlag")!=null)
 }
 %>
 
-<p>Get recommendations based on this TH</p>
 
-<form action="recommendations.jsp">	
-	<input type="submit" value="Get Recommendations" />
-</form>
 
-<%
-if(request.getParameter("favoriteFlag")!=null)
-{
-	driver.favorite(selectedTH, (Connector)session.getAttribute("connector"), (User)session.getAttribute("user"));
-}
-%>
 
 
 </body>
