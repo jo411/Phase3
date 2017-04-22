@@ -90,12 +90,12 @@ if(request.getParameter("confirmCartFlag")!=null)
 	driver.confirmReservationsJsp(user,con);//confirm the reservations in the shoppoing cart
 	driver.confirmVisitsJSP(con,user);//confirm the reservations in the shoppoing cart
 	con.closeConnection();
+	session.invalidate();
+	response.sendRedirect("index.html");
 }
 %>
 
 
-
-<p>Hello, <%=session.getAttribute("user") %>!</p>
 
 
 

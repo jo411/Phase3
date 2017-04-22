@@ -19,7 +19,8 @@
 		<BR>
 		<%	
 		ArrayList<TH> thList = driver.getRecomendationsList((Connector)session.getAttribute("connector"), (User)session.getAttribute("user"), (TH)session.getAttribute("currentTH"));
-		int count=1;
+		session.setAttribute("thlist", thList);
+		int count=1;		
 		for(TH current:thList)
 		{
 			out.println(count+": "+current.toString()+"<BR><BR>");

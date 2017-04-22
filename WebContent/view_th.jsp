@@ -7,6 +7,7 @@
 <title>ViewTH</title>
 </head>
 <body>
+<input type="button" onclick="location.href='main_menu.jsp';" value="Return to Menu" /><BR><BR>
 <%
 TH selectedTH=null;
 int index=0;
